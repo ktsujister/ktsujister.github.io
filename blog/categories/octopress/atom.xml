@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
 
-  <title><![CDATA[My Tech Blog]]></title>
-  <link href="http://ktsujister.github.io/atom.xml" rel="self"/>
+  <title><![CDATA[Category: Octopress | My Tech Blog]]></title>
+  <link href="http://ktsujister.github.io/blog/categories/octopress/atom.xml" rel="self"/>
   <link href="http://ktsujister.github.io/"/>
   <updated>2014-08-20T00:35:14+09:00</updated>
   <id>http://ktsujister.github.io/</id>
@@ -21,13 +21,11 @@
     <content type="html"><![CDATA[<p>Started blog page using <a href="https://github.com/imathis/octopress">octopress</a>.<br/>
 Followed instructions on <a href="http://tantant.jp/blog/Octopress/installing-octopress/">this page</a>, and <a href="http://octopress.org/docs/setup/">here</a>.</p>
 
-<p>While installing octopress, I encountered below error:</p>
-
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> ! [rejected]        master -&gt; master (non-fast-forward)</span></code></pre></td></tr></table></div></figure>
-
-
-<p>I was able to get this fixed by following <a href="http://stackoverflow.com/questions/17609453/rake-gen-deploy-rejected-in-octopress">this</a> in stackoverflow.</p>
+<p>While installing octopress, I encountered below error:
+<code>
+     ! [rejected]        master -&gt; master (non-fast-forward)
+</code>
+I was able to get this fixed by following <a href="http://stackoverflow.com/questions/17609453/rake-gen-deploy-rejected-in-octopress">this</a> in stackoverflow.</p>
 ]]></content>
   </entry>
   
