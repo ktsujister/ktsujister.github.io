@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[My Tech Blog]]></title>
+  <link href="http://ktsujister.github.io/atom.xml" rel="self"/>
+  <link href="http://ktsujister.github.io/"/>
+  <updated>2014-08-20T00:04:17+09:00</updated>
+  <id>http://ktsujister.github.io/</id>
+  <author>
+    <name><![CDATA[ktsujister]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Octopress]]></title>
+    <link href="http://ktsujister.github.io/blog/2014/08/19/octopress/"/>
+    <updated>2014-08-19T23:53:45+09:00</updated>
+    <id>http://ktsujister.github.io/blog/2014/08/19/octopress</id>
+    <content type="html"><![CDATA[<p>Started blog page using <a href="https://github.com/imathis/octopress">octopress</a>.<br/>
+Followed instructions on <a href="http://tantant.jp/blog/Octopress/installing-octopress/">this page</a>.</p>
+]]></content>
+  </entry>
+  
+</feed>
