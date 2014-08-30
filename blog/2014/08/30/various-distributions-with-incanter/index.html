@@ -1,24 +1,128 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-
-  <title><![CDATA[My Octopress Blog]]></title>
-  <link href="http://ktsujister.github.io/atom.xml" rel="self"/>
-  <link href="http://ktsujister.github.io/"/>
-  <updated>2014-08-30T23:00:49+09:00</updated>
-  <id>http://ktsujister.github.io/</id>
-  <author>
-    <name><![CDATA[Your Name]]></name>
-    
-  </author>
-  <generator uri="http://octopress.org/">Octopress</generator>
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Various Distributions With Incanter - My Octopress Blog</title>
+  <meta name="author" content="Your Name">
 
   
-  <entry>
-    <title type="html"><![CDATA[Various Distributions With Incanter]]></title>
-    <link href="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/"/>
-    <updated>2014-08-30T18:52:17+09:00</updated>
-    <id>http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter</id>
-    <content type="html"><![CDATA[<p>I was looking for ways to get random numbers from various distributions in Clojure.<br/>
+  
+
+  <!-- http://t.co/dKP3o1e -->
+  <meta name="HandheldFriendly" content="True">
+  <meta name="MobileOptimized" content="320">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  
+  <link rel="canonical" href="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter">
+  <link href="/favicon.png" type="image/png" rel="icon">
+  <link href="/atom.xml" rel="alternate" title="My Octopress Blog" type="application/atom+xml">
+
+  <!-- http://opengraphprotocol.org/ -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter">
+  <meta property="og:title" content="Various Distributions With Incanter - My Octopress Blog">
+  
+
+  <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
+
+<link href="/assets/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet" type="text/css">
+<link href="/assets/bootstrap/dist/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css">
+
+
+  
+  <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css">
+
+  
+
+</head>
+
+  <body   >
+    <div id="wrap">
+      <header role="banner">
+        <nav class="navbar navbar-default" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">My Octopress Blog</a>
+        </div>
+
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active">
+                    <a rel="index" href="/">Blog</a>
+                </li>
+                <li >
+                    <a href="/blog/archives">Archives</a>
+                </li>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a class="subscribe-rss" href="/atom.xml" title="subscribe via RSS">
+                        <span class="visible-xs">RSS</span>
+                        <img class="hidden-xs" src="/images/rss.png" alt="RSS">
+                    </a>
+                </li>
+                
+            </ul>
+            
+                <form class="search navbar-form navbar-right" action="https://www.google.com/search" method="GET">
+                    <input type="hidden" name="q" value="site:ktsujister.github.io">
+                    <div class="form-group">
+                        <input class="form-control" type="text" name="q" placeholder="Search">
+                    </div>
+                </form>
+            
+        </div>
+    </div>
+</nav>
+
+
+      </header>
+      <div id="main" class="container">
+        <div id="content">
+          <div class="row">
+  <div class="page-content col-md-9" itemscope itemtype="http://schema.org/Blog">
+    <meta itemprop="name" content="My Octopress Blog" />
+    
+    <meta itemprop="url" content="http://ktsujister.github.io" />
+    <article class="hentry" role="article" itemprop="blogPost" itemscope itemtype="http://schema.org/BlogPosting">
+      
+  <header class="page-header">
+    
+      <p class="meta text-muted text-uppercase">
+        
+
+
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-30T18:52:17+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+        
+      </p>
+    
+    
+    <h1 class="entry-title" itemprop="name headline">
+        Various Distributions With Incanter
+        
+    </h1>
+    
+  </header>
+
+
+<div class="entry-content clearfix" itemprop="articleBody description"><p>I was looking for ways to get random numbers from various distributions in Clojure.<br/>
 Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">Incanter</a>.</p>
 
 <p>Through out this page, I used below project.clj.</p>
@@ -69,11 +173,11 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 
 <p>Here&rsquo;s the plot. Red line is theoretical value.</p>
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/incanter-uniform.png" title="'uniform distribution incanter'" ></p>
+<p><img class="no-border" src="/images/distributions/incanter-uniform.png" title="'uniform distribution incanter'" ></p>
 
 <p>Below is the reference scipy version, and it&rsquo;s plot.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -103,10 +207,10 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">uniform</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;uniform pdf&#39;</span><span class="p">)</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/scipy-uniform.png" title="'uniform distribution scipy'" ></p>
+<p><img class="no-border" src="/images/distributions/scipy-uniform.png" title="'uniform distribution scipy'" ></p>
 
 <h2>Exponential distribution</h2>
 
@@ -139,11 +243,11 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 
 <p>Since incanter didn&rsquo;t have ppf(Percent point function, inverse of cdf), I used percentile of the created random values to get lower and upper range for drawing plot.</p>
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/incanter-exponential.png" title="&#34;incanter exponential plot&#34;" alt="&#34;incanter exponential plot&#34;"></p>
+<p><img class="no-border" src="/images/distributions/incanter-exponential.png" title="&#34;incanter exponential plot&#34;" alt="&#34;incanter exponential plot&#34;"></p>
 
 <p>Below is the reference scipy version, and it&rsquo;s plot.</p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -175,10 +279,10 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)))</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/scipy-expon.png" title="&#34;scipy exponential plot&#34;" alt="&#34;scipy exponential plot&#34;"></p>
+<p><img class="no-border" src="/images/distributions/scipy-expon.png" title="&#34;scipy exponential plot&#34;" alt="&#34;scipy exponential plot&#34;"></p>
 
 <h2>Beta distribution</h2>
 
@@ -208,9 +312,9 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </code></pre></noscript></div>
 
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/incanter-beta-a2-b5.png" title="&#34;incanter beta distribution(a=2, b=5)&#34;" alt="&#34;incanter beta distribution(a=2, b=5)&#34;"></p>
+<p><img class="no-border" src="/images/distributions/incanter-beta-a2-b5.png" title="&#34;incanter beta distribution(a=2, b=5)&#34;" alt="&#34;incanter beta distribution(a=2, b=5)&#34;"></p>
 
-<figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
 <span class='line-number'>3</span>
 <span class='line-number'>4</span>
@@ -242,10 +346,10 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)))</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p><img class="no-border" src="http://ktsujister.github.io/images/distributions/scipy-beta-a2-b5.png" title="&#34;scipy beta plot(a=2, b=5)&#34;" alt="&#34;scipy beta plot(a=2, b=5)&#34;"></p>
+<p><img class="no-border" src="/images/distributions/scipy-beta-a2-b5.png" title="&#34;scipy beta plot(a=2, b=5)&#34;" alt="&#34;scipy beta plot(a=2, b=5)&#34;"></p>
 
 <h2>References</h2>
 
@@ -257,25 +361,127 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 <p>This person was doing similar thing in python.</p></li>
 </ul>
 
-]]></content>
-  </entry>
+</div>
+
+
+      <footer>
+        <p class="meta text-muted">
+          
   
-  <entry>
-    <title type="html"><![CDATA[Octopress]]></title>
-    <link href="http://ktsujister.github.io/blog/2014/08/19/octopress/"/>
-    <updated>2014-08-19T23:53:45+09:00</updated>
-    <id>http://ktsujister.github.io/blog/2014/08/19/octopress</id>
-    <content type="html"><![CDATA[<p>Started blog page using <a href="https://github.com/imathis/octopress">octopress</a>.<br/>
-Followed instructions on <a href="http://tantant.jp/blog/Octopress/installing-octopress/">this page</a>, and <a href="http://octopress.org/docs/setup/">here</a>.</p>
 
-<p>While installing octopress, I encountered below error:</p>
+<span class="glyphicon glyphicon-user"></span> <span class="byline author vcard" itemprop="author" itemscope itemtype="http://schema.org/Person">Posted by <span class="fn" itemprop="name">Your Name</span></span>
 
-<figure class='code'><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-</pre></td><td class='code'><pre><code class=''><span class='line'> ! [rejected]        master -&gt; master (non-fast-forward)</span></code></pre></td></tr></table></div></figure>
+          
 
 
-<p>I was able to get this fixed by following <a href="http://stackoverflow.com/questions/17609453/rake-gen-deploy-rejected-in-octopress">this</a> in stackoverflow.</p>
-]]></content>
-  </entry>
+
+
+
+
+
+
+
+
+
+
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-30T18:52:17+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+          
+
+<span class="glyphicon glyphicon-tags"></span>&nbsp;
+<span class="categories">
   
-</feed>
+    <a class='category' href='/blog/categories/clojure/'>clojure</a>, <a class='category' href='/blog/categories/incanter/'>incanter</a>, <a class='category' href='/blog/categories/statistics/'>statistics</a>
+  
+</span>
+
+
+        </p>
+        
+          <div class="sharing">
+  
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/" data-via="" data-counturl="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/" >Tweet</a>
+  
+  
+  
+</div>
+
+        
+        
+          <ul class="meta text-muted pager">
+            
+            <li class="previous"><a href="/blog/2014/08/19/octopress/" title="Previous Post: octopress">&laquo; octopress</a></li>
+            
+            
+          </ul>
+        
+      </footer>
+    </article>
+    
+  </div>
+
+  
+  <aside class="sidebar col-md-3">
+    
+      <section class="panel panel-default">
+  <div class="panel-heading">
+    <h3 class="panel-title">Recent Posts</h3>
+  </div>
+  
+  <div id="recent_posts" class="list-group">
+    
+    <a class="list-group-item active" href="/blog/2014/08/30/various-distributions-with-incanter/">Various Distributions With Incanter</a>
+    
+    <a class="list-group-item " href="/blog/2014/08/19/octopress/">Octopress</a>
+    
+  </div>
+</section>
+
+
+
+
+
+
+    
+  </aside>
+  
+</div>
+
+        </div>
+      </div>
+    </div>
+    <footer role="contentinfo"><div class="container">
+    <p class="text-muted credits">
+  Copyright &copy; 2014 - Your Name<br>
+  <small>
+      <span class="credit">Powered by <a href="http://octopress.org">Octopress</a></span>,
+      <span class="credit">customized with <a href="https://github.com/kAworu/octostrap3">octostrap3</a></span>.
+  </small>
+</p>
+
+</div>
+</footer>
+    
+
+
+
+
+
+
+
+  <script type="text/javascript">
+    (function(){
+      var twitterWidgets = document.createElement('script');
+      twitterWidgets.type = 'text/javascript';
+      twitterWidgets.async = true;
+      twitterWidgets.src = '//platform.twitter.com/widgets.js';
+      document.getElementsByTagName('head')[0].appendChild(twitterWidgets);
+    })();
+  </script>
+
+
+<script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="/javascripts/modernizr-2.0.js"></script>
+
+
+  </body>
+</html>

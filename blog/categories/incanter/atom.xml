@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title><![CDATA[Category: Incanter | My Octopress Blog]]></title>
+  <link href="http://ktsujister.github.io/blog/categories/incanter/atom.xml" rel="self"/>
+  <link href="http://ktsujister.github.io/"/>
+  <updated>2014-08-30T23:00:49+09:00</updated>
+  <id>http://ktsujister.github.io/</id>
+  <author>
+    <name><![CDATA[Your Name]]></name>
+    
+  </author>
+  <generator uri="http://octopress.org/">Octopress</generator>
+
+  
+  <entry>
+    <title type="html"><![CDATA[Various Distributions With Incanter]]></title>
+    <link href="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/"/>
+    <updated>2014-08-30T18:52:17+09:00</updated>
+    <id>http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter</id>
+    <content type="html"><![CDATA[<p>I was looking for ways to get random numbers from various distributions in Clojure.<br/>
+Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">Incanter</a>.</p>
+
+<p>Through out this page, I used below project.clj.
+<div><script src='https://gist.github.com/7857ffebf577dcaa9062.js'></script>
+<noscript><pre><code>(defproject various-distributions &quot;0.1.0-SNAPSHOT&quot;
+  :description &quot;FIXME: write description&quot;
+  :url &quot;http://example.com/FIXME&quot;
+  :license {:name &quot;Eclipse Public License&quot;
+            :url &quot;http://www.eclipse.org/legal/epl-v10.html&quot;}
+  :dependencies [[org.clojure/clojure &quot;1.6.0&quot;]
+                 [incanter/incanter-core &quot;1.5.5&quot;]
+                 [incanter/incanter-charts &quot;1.5.5&quot;]]
+  ;; :jvm-opts ^:replace []
+  :main ^:skip-aot various-distributions.core
+  :target-path &quot;target/%s&quot;
+  :profiles {:uberjar {:aot :all}})
+</code></pre></noscript></div>
+</p>
+
+<h2>Uniform distribution</h2>
+
+<p>Probability density function(PDF) of Uniform Distribution:<br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png">http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png</a>" title="&lsquo;PDF plot of uniform distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png</a>" title="&lsquo;PDF of uniform distribution&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)</a>)</p>
+
+<p><div><script src='https://gist.github.com/f8197a3f18f9857e4be8.js'></script>
+<noscript><pre><code>(ns various-distributions.uniform
+  (:require [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]))
+
+(defn show-uniform-distribution []
+  (let [dist (d/uniform-distribution 0.0 1.0)
+        n 10000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;uniform&quot;]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/add-function pdf-fn 0 1 :series-label &quot;uniform-pdf&quot;)
+          i/view))))
+</code></pre></noscript></div>
+</p>
+
+<p>This is pretty straight forward.</p>
+
+<p>Here&rsquo;s the plot. Red line is theoretical value.</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-uniform.png" title="&lsquo;uniform distribution incanter&rsquo;" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import uniform
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 10000
+rv = uniform(loc=0.0, scale=1.0)
+x = rv.rvs(size=N)
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(rv.ppf(0), rv.ppf(1), 100)
+plt.plot(x, uniform.pdf(x), 'r-', lw=2, label='uniform pdf')
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-uniform.png" title="&lsquo;uniform distribution scipy&rsquo;" ></p>
+
+<h2>Exponential distribution</h2>
+
+<p>PDF of Exponential Distribution:<br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png">http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png</a>" title="&lsquo;PDF plot of Exponential Distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png</a>" title="&lsquo;PDF of Exponential Distribution plot&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Exponential_distribution">http://en.wikipedia.org/wiki/Exponential_distribution</a>)</p>
+
+<p><div><script src='https://gist.github.com/7ffee3319f15dfa42376.js'></script>
+<noscript><pre><code>(ns various-distributions.exponential
+  (:require [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-exponential-distribution []
+  (let [dist (d/exponential-distribution 1.0)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;exponential&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;exponential-pdf&quot;)
+          i/view))))
+</code></pre></noscript></div>
+</p>
+
+<p>Since incanter didn&rsquo;t have ppf(Percent point function, inverse of cdf), I used percentile of the created random values to get lower and upper range for drawing plot.</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-exponential.png" title="&ldquo;incanter exponential plot&rdquo;" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import expon
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 100000
+rv = expon(scale=1.0)
+x = rv.rvs(size=N)
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(rv.ppf(0.01), rv.ppf(0.99), 1000)
+plt.plot(x, rv.pdf(x), 'r-', lw=2, label='uniform pdf')
+plt.xlim((rv.ppf(0.01), rv.ppf(0.99)))
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-expon.png" title="&ldquo;scipy exponential plot&rdquo;" ></p>
+
+<h2>Beta distribution</h2>
+
+<p><img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png</a>" title="&lsquo;PDF plot of Beta distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png">http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png</a>" title="&lsquo;PDF of Beta distribution&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Beta_distribution">http://en.wikipedia.org/wiki/Beta_distribution</a>)</p>
+
+<p><div><script src='https://gist.github.com/924a6fc4556ea829a770.js'></script>
+<noscript><pre><code>(ns various-distributions.beta
+  (:require [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-beta-distribution []
+  (let [dist (d/beta-distribution 2 5)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;gamma&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label series-label)
+          i/view))))
+</code></pre></noscript></div>
+</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-beta-a2-b5.png" title="&ldquo;incanter beta distribution(a=2, b=5)&rdquo;" ></p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import beta
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 100000
+rv = beta(a=2.0, b=5.0)
+x = rv.rvs(size=N)
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(rv.ppf(0.01), rv.ppf(0.99), 1000)
+plt.plot(x, rv.pdf(x), 'r-', lw=2, label='uniform pdf')
+plt.xlim((rv.ppf(0.01), rv.ppf(0.99)))
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-beta-a2-b5.png" title="&ldquo;scipy beta plot(a=2, b=5)&rdquo;" ></p>
+
+<h2>References</h2>
+
+<p>Helpful references were:</p>
+
+<ul>
+<li><p><a href="http://aidiary.hatenablog.com/entry/20140620/1403272044">http://aidiary.hatenablog.com/entry/20140620/1403272044</a></p>
+
+<p>This person was doing similar thing in python.</p></li>
+</ul>
+
+]]></content>
+  </entry>
+  
+</feed>
