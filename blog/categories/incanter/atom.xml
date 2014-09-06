@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Incanter | My Tech Blog]]></title>
   <link href="http://ktsujister.github.io/blog/categories/incanter/atom.xml" rel="self"/>
   <link href="http://ktsujister.github.io/"/>
-  <updated>2014-08-30T23:43:42+09:00</updated>
+  <updated>2014-09-06T17:20:19+09:00</updated>
   <id>http://ktsujister.github.io/</id>
   <author>
     <name><![CDATA[ktsujister]]></name>
@@ -20,6 +20,15 @@
     <id>http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter</id>
     <content type="html"><![CDATA[<p>I was looking for ways to get random numbers from various distributions in Clojure.<br/>
 Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">Incanter</a>.</p>
+
+<p>Below are the list of distributions mentioned in this page.</p>
+
+<ul>
+<li><a href="#uniform-distribution">Uniform distribution</a></li>
+<li><a href="#exponential-distribution">Exponential distribution</a></li>
+<li><a href="#beta-distribution">Beta distribution</a></li>
+</ul>
+
 
 <p>Through out this page, I used below project.clj.
 <div><script src='https://gist.github.com/7857ffebf577dcaa9062.js'></script>
@@ -38,11 +47,11 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </code></pre></noscript></div>
 </p>
 
-<h2>Uniform distribution</h2>
+<h2><a id="uniform-distribution"></a>Uniform distribution</h2>
 
 <p>Probability density function(PDF) of Uniform Distribution:<br/>
-<img class="no-border <a" src="href="http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png">http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png</a>" title="&lsquo;PDF plot of uniform distribution&rsquo;" ><br/>
-<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png</a>" title="&lsquo;PDF of uniform distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png">http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png</a>" title="&lsquo;PDF of uniform distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png</a>" title="&lsquo;PDF plot of uniform distribution&rsquo;" ><br/>
 (From <a href="http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)</a>)</p>
 
 <p><div><script src='https://gist.github.com/f8197a3f18f9857e4be8.js'></script>
@@ -91,11 +100,11 @@ plt.show()
 
 <p><img class="no-border" src="/images/distributions/scipy-uniform.png" title="&lsquo;uniform distribution scipy&rsquo;" ></p>
 
-<h2>Exponential distribution</h2>
+<h2><a id="exponential-distribution"></a>Exponential distribution</h2>
 
 <p>PDF of Exponential Distribution:<br/>
-<img class="no-border <a" src="href="http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png">http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png</a>" title="&lsquo;PDF plot of Exponential Distribution&rsquo;" ><br/>
-<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png</a>" title="&lsquo;PDF of Exponential Distribution plot&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png">http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png</a>" title="&lsquo;PDF of Exponential Distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png</a>" title="&lsquo;PDF plot of Exponential Distribution plot&rsquo;" ><br/>
 (From <a href="http://en.wikipedia.org/wiki/Exponential_distribution">http://en.wikipedia.org/wiki/Exponential_distribution</a>)</p>
 
 <p><div><script src='https://gist.github.com/7ffee3319f15dfa42376.js'></script>
@@ -146,10 +155,10 @@ plt.show()
 
 <p><img class="no-border" src="/images/distributions/scipy-expon.png" title="&ldquo;scipy exponential plot&rdquo;" ></p>
 
-<h2>Beta distribution</h2>
+<h2><a id="beta-distribution"></a>Beta distribution</h2>
 
-<p><img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png</a>" title="&lsquo;PDF plot of Beta distribution&rsquo;" ><br/>
-<img class="no-border <a" src="href="http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png">http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png</a>" title="&lsquo;PDF of Beta distribution&rsquo;" ><br/>
+<p><img class="no-border <a" src="href="http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png">http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png</a>" title="&lsquo;PDF of Beta distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png</a>" title="&lsquo;PDF plot of Beta distribution&rsquo;" ><br/>
 (From <a href="http://en.wikipedia.org/wiki/Beta_distribution">http://en.wikipedia.org/wiki/Beta_distribution</a>)</p>
 
 <p><div><script src='https://gist.github.com/924a6fc4556ea829a770.js'></script>
