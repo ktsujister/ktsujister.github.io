@@ -4,7 +4,7 @@
   <title><![CDATA[Category: Incanter | My Tech Blog]]></title>
   <link href="http://ktsujister.github.io/blog/categories/incanter/atom.xml" rel="self"/>
   <link href="http://ktsujister.github.io/"/>
-  <updated>2014-09-06T17:20:19+09:00</updated>
+  <updated>2014-09-06T23:23:15+09:00</updated>
   <id>http://ktsujister.github.io/</id>
   <author>
     <name><![CDATA[ktsujister]]></name>
@@ -12,6 +12,252 @@
   </author>
   <generator uri="http://octopress.org/">Octopress</generator>
 
+  
+  <entry>
+    <title type="html"><![CDATA[More Distributions With Incanter and Commons Math]]></title>
+    <link href="http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/"/>
+    <updated>2014-09-06T17:22:28+09:00</updated>
+    <id>http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math</id>
+    <content type="html"><![CDATA[<p>In the <a href="/blog/2014/08/30/various-distributions-with-incanter/">last post</a>, I explored how to get below disributions with incanter.</p>
+
+<ul>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#uniform-distribution">Uniform distribution</a></li>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#exponential-distribution">Exponential distribution</a></li>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#beta-distribution">Beta distribution</a></li>
+</ul>
+
+
+<p>Incanter supports various distributions:
+(From: <a href="http://incanter.github.io/incanter/distributions-api.html">http://incanter.github.io/incanter/distributions-api.html</a>)</p>
+
+<ul>
+<li>beta-distribution</li>
+<li>binomial-distribution</li>
+<li>chisq-distribution</li>
+<li>exponential-distribution</li>
+<li>f-distribution</li>
+<li>gamma-distribution</li>
+<li>integer-distribution</li>
+<li>neg-binomial-distribution</li>
+<li>normal-distribution</li>
+<li>poisson-distribution</li>
+<li>t-distribution</li>
+<li>uniform-distribution</li>
+</ul>
+
+
+<p>But <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">Scipy stats</a> supports lot more distributions.<br/>
+In JVM world, there&rsquo;s another library that supports various distributions called <a href="http://commons.apache.org/proper/commons-math/">Apache Commons Math</a>, and here are <a href="http://commons.apache.org/proper/commons-math/userguide/distribution.html">list of distributions</a> supported by the library.
+In order to make those distributions available from Incanter world, I&rsquo;ve created small library called <a href="https://github.com/ktsujister/incanter-contrib-distribution">incanter-contrib-distribution</a>.</p>
+
+<p>Below are some of the examples of how to use it.</p>
+
+<ul>
+<li><a href="#cauchy-distribution">Cauchy distribution</a></li>
+<li><a href="#gamma-distribution">Gamma distribution</a></li>
+<li><a href="#triangular-distribution">Triangular Distribution</a></li>
+</ul>
+
+
+<h2><a id="cauchy-distribution"></a>Cauchy distribution</h2>
+
+<p>PDF of Cauchy distribution:<br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/3/f/6/3f633b544c30394c3315b0bcc8952a7c.png">http://upload.wikimedia.org/math/3/f/6/3f633b544c30394c3315b0bcc8952a7c.png</a>" title="&lsquo;PDF of Cauchy Distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cauchy_pdf.svg/300px-Cauchy_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cauchy_pdf.svg/300px-Cauchy_pdf.svg.png</a>" title="&lsquo;Cauchy Distribution plot&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Cauchy_distribution">http://en.wikipedia.org/wiki/Cauchy_distribution</a>)</p>
+
+<p>Cauthy distribution has wide support, so for plotting, filtered out values out of certain range.</p>
+
+<p><div><script src='https://gist.github.com/9f57be169f6b3222e749.js'></script>
+<noscript><pre><code>(ns more-distributions.cauchy
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-cauchy-distribution []
+  (let [dist (icd/cauchy-distribution 0 1)
+        n 100000
+        x (-&gt;&gt; (repeatedly n #(d/draw dist))
+               (filter (fn [x] (and (&gt; x -10)
+                                    (&lt; x 10)))))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;cauchy&quot;
+          [x-min x-max] [-10 10]]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;cauchy-pdf&quot;)
+          i/view))))
+
+</code></pre></noscript></div>
+</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-cauchy.png" title="cauchy distribution with incanter-contrib-distribution" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import cauchy 
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 100000
+rv = cauchy(loc=0.0, scale=1.0)
+x = rv.rvs(size=N)
+x = x[(x&gt;-10) &amp; (x&lt;10)]
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(-10, 10, 1000)
+plt.plot(x, rv.pdf(x), 'r-', lw=2, label='cauchy pdf')
+plt.xlim((-10, 10))
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-cauchy.png" title="&ldquo;scipy cauchy distribution plot&rdquo;" ></p>
+
+<h2><a id="gamma-distribution"></a>Gamma distribution</h2>
+
+<p>PDF of Gamma Distribution:<br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/4/f/9/4f9371ca9752b8c64098e23d957adecc.png">http://upload.wikimedia.org/math/4/f/9/4f9371ca9752b8c64098e23d957adecc.png</a>" title="&lsquo;PDF of Gamma Distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Gamma_distribution_pdf.svg/325px-Gamma_distribution_pdf.svg.png">http://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Gamma_distribution_pdf.svg/325px-Gamma_distribution_pdf.svg.png</a>" title="&lsquo;PDF plot of Gamma Distribution&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Gamma_distribution">http://en.wikipedia.org/wiki/Gamma_distribution</a>)</p>
+
+<p>Gamma distribution exists in incanter, but in incanter-1.5.5, there&rsquo;s still <a href="https://github.com/incanter/incanter/issues/245">issue</a> around draw.<br/>
+Here&rsquo;s how it&rsquo;s not properly working with incanter-1.5.5 gamma-distribution.
+<div><script src='https://gist.github.com/37cada37a462e0345f06.js'></script>
+<noscript><pre><code>(ns various-distributions.gamma
+  (:require [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+;; https://github.com/incanter/incanter/issues/245
+(defn show-gamma-distribution []
+  (let [dist (d/gamma-distribution 2 2)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;gamma&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label series-label)
+          i/view))))
+</code></pre></noscript></div>
+</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-1.5.5-gamma.png" title="gamma distribution incanter 1.5.5 with issues&#8217;" ></p>
+
+<p>Though this was fixed in <a href="https://github.com/incanter/incanter/issues/245">issue#245</a> and is available in head, I used incanter-contrib-distributions for this for now.
+<div><script src='https://gist.github.com/fb6922edb69a5ccce45d.js'></script>
+<noscript><pre><code>(ns more-distributions.triangular
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-gamma-distribution []
+  (let [dist (icd/gamma-distribution 2 2)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;triangular&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;triangular-pdf&quot;)
+          i/view))))
+
+</code></pre></noscript></div>
+</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-gamma.png" title="gamma distribution incanter-contrib-distribution" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import gamma
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 100000
+rv = gamma(a=2.0, scale=2.0)
+x = rv.rvs(size=N)
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(rv.ppf(0.01), rv.ppf(0.99), 1000)
+plt.plot(x, rv.pdf(x), 'r-', lw=2, label='uniform pdf')
+plt.xlim((rv.ppf(0.01), rv.ppf(0.99)))
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-gamma-k2-theta2.png" title="&ldquo;scipy gamma plot k=2, theta=2&rdquo;" ></p>
+
+<h2><a id="triangular-distribution"></a>Triangular Distribution</h2>
+
+<p>PDF of Triangular Distribution:<br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/math/6/d/d/6dd996612545e198efc5c2c1eae2987a.png">http://upload.wikimedia.org/math/6/d/d/6dd996612545e198efc5c2c1eae2987a.png</a>" title="&lsquo;PDF of Exponential Distribution&rsquo;" ><br/>
+<img class="no-border <a" src="href="http://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Triangular_distribution_PMF.png/325px-Triangular_distribution_PMF.png">http://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Triangular_distribution_PMF.png/325px-Triangular_distribution_PMF.png</a>" title="&lsquo;PDF plot of Exponential Distribution plot&rsquo;" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Triangular_distribution">http://en.wikipedia.org/wiki/Triangular_distribution</a></p>
+
+<p><div><script src='https://gist.github.com/27ed7f216de20e13a8f7.js'></script>
+<noscript><pre><code>(ns more-distributions.triangular
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-triangular-distribution []
+  (let [dist (icd/triangular-distribution 0.0 0.3 1.0)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;triangular&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;triangular-pdf&quot;)
+          i/view))))
+
+</code></pre></noscript></div>
+</p>
+
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-triang.png" title="&lsquo;triangular distribution incanter&rsquo;" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<pre><code class="python">import numpy as np
+from scipy.stats import triang
+import matplotlib.pyplot as plt
+
+np.random.seed()
+N = 100000
+rv = triang(loc=0.0, c=0.3, scale=1.0)
+x = rv.rvs(size=N)
+nbins = 50
+plt.hist(x, nbins, normed=True)
+
+x = np.linspace(rv.ppf(0.01), rv.ppf(0.99), 1000)
+plt.plot(x, rv.pdf(x), 'r-', lw=2, label='triang pdf')
+plt.xlim((rv.ppf(0.01), rv.ppf(0.99)))
+
+plt.show()
+</code></pre>
+
+<p><img class="no-border" src="/images/distributions/scipy-triang.png" title="triangular distribution scipy&#8217;" ></p>
+]]></content>
+  </entry>
   
   <entry>
     <title type="html"><![CDATA[Various Distributions With Incanter]]></title>

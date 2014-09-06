@@ -2,7 +2,7 @@
 <html class="no-js" lang="en">
 <head>
   <meta charset="utf-8">
-  <title>Various Distributions With Incanter - My Tech Blog</title>
+  <title>More Distributions With Incanter and Commons Math - My Tech Blog</title>
   <meta name="author" content="ktsujister">
 
   
@@ -14,15 +14,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
   
-  <link rel="canonical" href="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter">
+  <link rel="canonical" href="http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math">
   <link href="/favicon.png" type="image/png" rel="icon">
   <link href="/atom.xml" rel="alternate" title="My Tech Blog" type="application/atom+xml">
 
   <!-- http://opengraphprotocol.org/ -->
   <meta name="twitter:card" content="summary_large_image">
   <meta property="og:type" content="website">
-  <meta property="og:url" content="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter">
-  <meta property="og:title" content="Various Distributions With Incanter - My Tech Blog">
+  <meta property="og:url" content="http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math">
+  <meta property="og:title" content="More Distributions With Incanter and Commons Math - My Tech Blog">
   
 
   <script src="/javascripts/libs/jquery/jquery-2.0.3.min.js"></script>
@@ -120,7 +120,7 @@
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-30T18:52:17+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-06T17:22:28+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
         
            | <a href="#disqus_thread" itemprop="discussionUrl"
              data-disqus-identifier="http://ktsujister.github.io">Comments</a>
@@ -129,144 +129,90 @@
     
     
     <h1 class="entry-title" itemprop="name headline">
-        Various Distributions With Incanter
+        More Distributions With Incanter and Commons Math
         
     </h1>
     
   </header>
 
 
-<div class="entry-content clearfix" itemprop="articleBody description"><p>I was looking for ways to get random numbers from various distributions in Clojure.<br/>
-Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">Incanter</a>.</p>
-
-<p>Below are the list of distributions mentioned in this page.</p>
+<div class="entry-content clearfix" itemprop="articleBody description"><p>In the <a href="/blog/2014/08/30/various-distributions-with-incanter/">last post</a>, I explored how to get below disributions with incanter.</p>
 
 <ul>
-<li><a href="#uniform-distribution">Uniform distribution</a></li>
-<li><a href="#exponential-distribution">Exponential distribution</a></li>
-<li><a href="#beta-distribution">Beta distribution</a></li>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#uniform-distribution">Uniform distribution</a></li>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#exponential-distribution">Exponential distribution</a></li>
+<li><a href="/blog/2014/08/30/various-distributions-with-incanter/#beta-distribution">Beta distribution</a></li>
 </ul>
 
 
-<p>Through out this page, I used below project.clj.</p>
+<p>Incanter supports various distributions:
+(From: <a href="http://incanter.github.io/incanter/distributions-api.html">http://incanter.github.io/incanter/distributions-api.html</a>)</p>
 
-<div><script src='https://gist.github.com/7857ffebf577dcaa9062.js'></script>
-<noscript><pre><code>(defproject various-distributions &quot;0.1.0-SNAPSHOT&quot;
-  :description &quot;FIXME: write description&quot;
-  :url &quot;http://example.com/FIXME&quot;
-  :license {:name &quot;Eclipse Public License&quot;
-            :url &quot;http://www.eclipse.org/legal/epl-v10.html&quot;}
-  :dependencies [[org.clojure/clojure &quot;1.6.0&quot;]
-                 [incanter/incanter-core &quot;1.5.5&quot;]
-                 [incanter/incanter-charts &quot;1.5.5&quot;]]
-  ;; :jvm-opts ^:replace []
-  :main ^:skip-aot various-distributions.core
-  :target-path &quot;target/%s&quot;
-  :profiles {:uberjar {:aot :all}})
-</code></pre></noscript></div>
-
-
-<h2><a id="uniform-distribution"></a>Uniform distribution</h2>
-
-<p>Probability density function(PDF) of Uniform Distribution:<br/>
-<img class="no-border" src="http://upload.wikimedia.org/math/8/f/b/8fbfebfbb3dfa135da807a45374376d5.png" title="'PDF of uniform distribution'" ><br/>
-<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/9/96/Uniform_Distribution_PDF_SVG.svg/250px-Uniform_Distribution_PDF_SVG.svg.png" title="'PDF plot of uniform distribution'" ><br/>
-(From <a href="http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)">http://en.wikipedia.org/wiki/Uniform_distribution_(continuous)</a>)</p>
-
-<div><script src='https://gist.github.com/f8197a3f18f9857e4be8.js'></script>
-<noscript><pre><code>(ns various-distributions.uniform
-  (:require [incanter.charts :as c]
-            [incanter.core :as i]
-            [incanter.distributions :as d]))
-
-(defn show-uniform-distribution []
-  (let [dist (d/uniform-distribution 0.0 1.0)
-        n 10000
-        x (repeatedly n #(d/draw dist))
-        pdf-fn #(d/pdf dist %)]
-    (let [nbins 50
-          series-label &quot;uniform&quot;]
-      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
-          (c/add-function pdf-fn 0 1 :series-label &quot;uniform-pdf&quot;)
-          i/view))))
-</code></pre></noscript></div>
+<ul>
+<li>beta-distribution</li>
+<li>binomial-distribution</li>
+<li>chisq-distribution</li>
+<li>exponential-distribution</li>
+<li>f-distribution</li>
+<li>gamma-distribution</li>
+<li>integer-distribution</li>
+<li>neg-binomial-distribution</li>
+<li>normal-distribution</li>
+<li>poisson-distribution</li>
+<li>t-distribution</li>
+<li>uniform-distribution</li>
+</ul>
 
 
-<p>This is pretty straight forward.</p>
+<p>But <a href="http://docs.scipy.org/doc/scipy/reference/stats.html">Scipy stats</a> supports lot more distributions.<br/>
+In JVM world, there&rsquo;s another library that supports various distributions called <a href="http://commons.apache.org/proper/commons-math/">Apache Commons Math</a>, and here are <a href="http://commons.apache.org/proper/commons-math/userguide/distribution.html">list of distributions</a> supported by the library.
+In order to make those distributions available from Incanter world, I&rsquo;ve created small library called <a href="https://github.com/ktsujister/incanter-contrib-distribution">incanter-contrib-distribution</a>.</p>
 
-<p>Here&rsquo;s the plot. Red line is theoretical value.</p>
+<p>Below are some of the examples of how to use it.</p>
 
-<p><img class="no-border" src="/images/distributions/incanter-uniform.png" title="'uniform distribution incanter'" ></p>
-
-<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
-
-<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
-<span class='line-number'>2</span>
-<span class='line-number'>3</span>
-<span class='line-number'>4</span>
-<span class='line-number'>5</span>
-<span class='line-number'>6</span>
-<span class='line-number'>7</span>
-<span class='line-number'>8</span>
-<span class='line-number'>9</span>
-<span class='line-number'>10</span>
-<span class='line-number'>11</span>
-<span class='line-number'>12</span>
-<span class='line-number'>13</span>
-<span class='line-number'>14</span>
-<span class='line-number'>15</span>
-</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">uniform</span>
-</span><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
-</span><span class='line'><span class="n">N</span> <span class="o">=</span> <span class="mi">10000</span>
-</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">uniform</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
-</span><span class='line'><span class="n">nbins</span> <span class="o">=</span> <span class="mi">50</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">0</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="mi">100</span><span class="p">)</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">uniform</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;uniform pdf&#39;</span><span class="p">)</span>
-</span><span class='line'>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-</span></code></pre></td></tr></table></div></figure></notextile></div>
+<ul>
+<li><a href="#cauchy-distribution">Cauchy distribution</a></li>
+<li><a href="#gamma-distribution">Gamma distribution</a></li>
+<li><a href="#triangular-distribution">Triangular Distribution</a></li>
+</ul>
 
 
-<p><img class="no-border" src="/images/distributions/scipy-uniform.png" title="'uniform distribution scipy'" ></p>
+<h2><a id="cauchy-distribution"></a>Cauchy distribution</h2>
 
-<h2><a id="exponential-distribution"></a>Exponential distribution</h2>
+<p>PDF of Cauchy distribution:<br/>
+<img class="no-border" src="http://upload.wikimedia.org/math/3/f/6/3f633b544c30394c3315b0bcc8952a7c.png" title="'PDF of Cauchy Distribution'" ><br/>
+<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/8/8c/Cauchy_pdf.svg/300px-Cauchy_pdf.svg.png" title="'Cauchy Distribution plot'" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Cauchy_distribution">http://en.wikipedia.org/wiki/Cauchy_distribution</a>)</p>
 
-<p>PDF of Exponential Distribution:<br/>
-<img class="no-border" src="http://upload.wikimedia.org/math/c/d/7/cd793311c87db5a323617afba5963e28.png" title="'PDF of Exponential Distribution'" ><br/>
-<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/ec/Exponential_pdf.svg/325px-Exponential_pdf.svg.png" title="'PDF plot of Exponential Distribution plot'" ><br/>
-(From <a href="http://en.wikipedia.org/wiki/Exponential_distribution">http://en.wikipedia.org/wiki/Exponential_distribution</a>)</p>
+<p>Cauthy distribution has wide support, so for plotting, filtered out values out of certain range.</p>
 
-<div><script src='https://gist.github.com/7ffee3319f15dfa42376.js'></script>
-<noscript><pre><code>(ns various-distributions.exponential
-  (:require [incanter.charts :as c]
+<div><script src='https://gist.github.com/9f57be169f6b3222e749.js'></script>
+<noscript><pre><code>(ns more-distributions.cauchy
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
             [incanter.core :as i]
             [incanter.distributions :as d]
             [incanter.stats :as s]))
 
-(defn show-exponential-distribution []
-  (let [dist (d/exponential-distribution 1.0)
+(defn show-cauchy-distribution []
+  (let [dist (icd/cauchy-distribution 0 1)
         n 100000
-        x (repeatedly n #(d/draw dist))
+        x (-&gt;&gt; (repeatedly n #(d/draw dist))
+               (filter (fn [x] (and (&gt; x -10)
+                                    (&lt; x 10)))))
         pdf-fn #(d/pdf dist %)]
     (let [nbins 50
-          series-label &quot;exponential&quot;
-          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+          series-label &quot;cauchy&quot;
+          [x-min x-max] [-10 10]]
       (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
           (c/set-x-range x-min x-max)
-          (c/add-function pdf-fn x-min x-max :series-label &quot;exponential-pdf&quot;)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;cauchy-pdf&quot;)
           i/view))))
+
 </code></pre></noscript></div>
 
 
-<p>Since incanter didn&rsquo;t have ppf(Percent point function, inverse of cdf), I used percentile of the created random values to get lower and upper range for drawing plot.</p>
-
-<p><img class="no-border" src="/images/distributions/incanter-exponential.png" title="&#34;incanter exponential plot&#34;" alt="&#34;incanter exponential plot&#34;"></p>
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-cauchy.png" title="cauchy distribution with incanter-contrib-distribution" ></p>
 
 <p>Below is the reference scipy version, and it&rsquo;s plot.</p>
 
@@ -286,42 +232,49 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 <span class='line-number'>14</span>
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
+<span class='line-number'>17</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">expon</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">cauchy</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
 </span><span class='line'><span class="n">N</span> <span class="o">=</span> <span class="mi">100000</span>
-</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">expon</span><span class="p">(</span><span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">cauchy</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
 </span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">x</span><span class="p">[(</span><span class="n">x</span><span class="o">&gt;-</span><span class="mi">10</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">)]</span>
 </span><span class='line'><span class="n">nbins</span> <span class="o">=</span> <span class="mi">50</span>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
 </span><span class='line'>
-</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;uniform pdf&#39;</span><span class="p">)</span>
-</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)))</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;cauchy pdf&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">10</span><span class="p">))</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p><img class="no-border" src="/images/distributions/scipy-expon.png" title="&#34;scipy exponential plot&#34;" alt="&#34;scipy exponential plot&#34;"></p>
+<p><img class="no-border" src="/images/distributions/scipy-cauchy.png" title="&#34;scipy cauchy distribution plot&#34;" alt="&#34;scipy cauchy distribution plot&#34;"></p>
 
-<h2><a id="beta-distribution"></a>Beta distribution</h2>
+<h2><a id="gamma-distribution"></a>Gamma distribution</h2>
 
-<p><img class="no-border" src="http://upload.wikimedia.org/math/a/3/0/a308447ab156616c5dbe3cc69d65a7cc.png" title="'PDF of Beta distribution'" ><br/>
-<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/f/f3/Beta_distribution_pdf.svg/325px-Beta_distribution_pdf.svg.png" title="'PDF plot of Beta distribution'" ><br/>
-(From <a href="http://en.wikipedia.org/wiki/Beta_distribution">http://en.wikipedia.org/wiki/Beta_distribution</a>)</p>
+<p>PDF of Gamma Distribution:<br/>
+<img class="no-border" src="http://upload.wikimedia.org/math/4/f/9/4f9371ca9752b8c64098e23d957adecc.png" title="'PDF of Gamma Distribution'" ><br/>
+<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/e/e6/Gamma_distribution_pdf.svg/325px-Gamma_distribution_pdf.svg.png" title="'PDF plot of Gamma Distribution'" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Gamma_distribution">http://en.wikipedia.org/wiki/Gamma_distribution</a>)</p>
 
-<div><script src='https://gist.github.com/924a6fc4556ea829a770.js'></script>
-<noscript><pre><code>(ns various-distributions.beta
+<p>Gamma distribution exists in incanter, but in incanter-1.5.5, there&rsquo;s still <a href="https://github.com/incanter/incanter/issues/245">issue</a> around draw.<br/>
+Here&rsquo;s how it&rsquo;s not properly working with incanter-1.5.5 gamma-distribution.</p>
+
+<div><script src='https://gist.github.com/37cada37a462e0345f06.js'></script>
+<noscript><pre><code>(ns various-distributions.gamma
   (:require [incanter.charts :as c]
             [incanter.core :as i]
             [incanter.distributions :as d]
             [incanter.stats :as s]))
 
-(defn show-beta-distribution []
-  (let [dist (d/beta-distribution 2 5)
+;; https://github.com/incanter/incanter/issues/245
+(defn show-gamma-distribution []
+  (let [dist (d/gamma-distribution 2 2)
         n 100000
         x (repeatedly n #(d/draw dist))
         pdf-fn #(d/pdf dist %)]
@@ -335,7 +288,37 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </code></pre></noscript></div>
 
 
-<p><img class="no-border" src="/images/distributions/incanter-beta-a2-b5.png" title="&#34;incanter beta distribution(a=2, b=5)&#34;" alt="&#34;incanter beta distribution(a=2, b=5)&#34;"></p>
+<p><img class="no-border" src="/images/distributions/incanter-1.5.5-gamma.png" title="gamma distribution incanter 1.5.5 with issues'" ></p>
+
+<p>Though this was fixed in <a href="https://github.com/incanter/incanter/issues/245">issue#245</a> and is available in head, I used incanter-contrib-distributions for this for now.</p>
+
+<div><script src='https://gist.github.com/fb6922edb69a5ccce45d.js'></script>
+<noscript><pre><code>(ns more-distributions.triangular
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
+
+(defn show-gamma-distribution []
+  (let [dist (icd/gamma-distribution 2 2)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;triangular&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;triangular-pdf&quot;)
+          i/view))))
+
+</code></pre></noscript></div>
+
+
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-gamma.png" title="gamma distribution incanter-contrib-distribution" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
 
 <div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
 <span class='line-number'>2</span>
@@ -354,12 +337,12 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 <span class='line-number'>15</span>
 <span class='line-number'>16</span>
 </pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
-</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">beta</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">gamma</span>
 </span><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
 </span><span class='line'>
 </span><span class='line'><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
 </span><span class='line'><span class="n">N</span> <span class="o">=</span> <span class="mi">100000</span>
-</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">beta</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="mf">5.0</span><span class="p">)</span>
+</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">gamma</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="mf">2.0</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">2.0</span><span class="p">)</span>
 </span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
 </span><span class='line'><span class="n">nbins</span> <span class="o">=</span> <span class="mi">50</span>
 </span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
@@ -372,18 +355,79 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 </span></code></pre></td></tr></table></div></figure></notextile></div>
 
 
-<p><img class="no-border" src="/images/distributions/scipy-beta-a2-b5.png" title="&#34;scipy beta plot(a=2, b=5)&#34;" alt="&#34;scipy beta plot(a=2, b=5)&#34;"></p>
+<p><img class="no-border" src="/images/distributions/scipy-gamma-k2-theta2.png" title="&#34;scipy gamma plot k=2, theta=2&#34;" alt="&#34;scipy gamma plot k=2, theta=2&#34;"></p>
 
-<h2>References</h2>
+<h2><a id="triangular-distribution"></a>Triangular Distribution</h2>
 
-<p>Helpful references were:</p>
+<p>PDF of Triangular Distribution:<br/>
+<img class="no-border" src="http://upload.wikimedia.org/math/6/d/d/6dd996612545e198efc5c2c1eae2987a.png" title="'PDF of Exponential Distribution'" ><br/>
+<img class="no-border" src="http://upload.wikimedia.org/wikipedia/commons/thumb/4/45/Triangular_distribution_PMF.png/325px-Triangular_distribution_PMF.png" title="'PDF plot of Exponential Distribution plot'" ><br/>
+(From <a href="http://en.wikipedia.org/wiki/Triangular_distribution">http://en.wikipedia.org/wiki/Triangular_distribution</a></p>
 
-<ul>
-<li><p><a href="http://aidiary.hatenablog.com/entry/20140620/1403272044">http://aidiary.hatenablog.com/entry/20140620/1403272044</a></p>
+<div><script src='https://gist.github.com/27ed7f216de20e13a8f7.js'></script>
+<noscript><pre><code>(ns more-distributions.triangular
+  (:require [incanter-contrib.distributions :as icd]
+            [incanter.charts :as c]
+            [incanter.core :as i]
+            [incanter.distributions :as d]
+            [incanter.stats :as s]))
 
-<p>This person was doing similar thing in python.</p></li>
-</ul>
+(defn show-triangular-distribution []
+  (let [dist (icd/triangular-distribution 0.0 0.3 1.0)
+        n 100000
+        x (repeatedly n #(d/draw dist))
+        pdf-fn #(d/pdf dist %)]
+    (let [nbins 50
+          series-label &quot;triangular&quot;
+          [x-min x-max] (s/quantile x :probs [0.01 0.99])]
+      (-&gt; (c/histogram x :nbins nbins :density true :series-label series-label)
+          (c/set-x-range x-min x-max)
+          (c/add-function pdf-fn x-min x-max :series-label &quot;triangular-pdf&quot;)
+          i/view))))
 
+</code></pre></noscript></div>
+
+
+<p><img class="no-border" src="/images/distributions/incanter-contrib-distribution-triang.png" title="'triangular distribution incanter'" ></p>
+
+<p>Below is the reference scipy version, and it&rsquo;s plot.</p>
+
+<div class='bogus-wrapper'><notextile><figure class='code'><figcaption><span></span></figcaption><div class="highlight"><table><tr><td class="gutter"><pre class="line-numbers"><span class='line-number'>1</span>
+<span class='line-number'>2</span>
+<span class='line-number'>3</span>
+<span class='line-number'>4</span>
+<span class='line-number'>5</span>
+<span class='line-number'>6</span>
+<span class='line-number'>7</span>
+<span class='line-number'>8</span>
+<span class='line-number'>9</span>
+<span class='line-number'>10</span>
+<span class='line-number'>11</span>
+<span class='line-number'>12</span>
+<span class='line-number'>13</span>
+<span class='line-number'>14</span>
+<span class='line-number'>15</span>
+<span class='line-number'>16</span>
+</pre></td><td class='code'><pre><code class='python'><span class='line'><span class="kn">import</span> <span class="nn">numpy</span> <span class="kn">as</span> <span class="nn">np</span>
+</span><span class='line'><span class="kn">from</span> <span class="nn">scipy.stats</span> <span class="kn">import</span> <span class="n">triang</span>
+</span><span class='line'><span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="kn">as</span> <span class="nn">plt</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">()</span>
+</span><span class='line'><span class="n">N</span> <span class="o">=</span> <span class="mi">100000</span>
+</span><span class='line'><span class="n">rv</span> <span class="o">=</span> <span class="n">triang</span><span class="p">(</span><span class="n">loc</span><span class="o">=</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">c</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">scale</span><span class="o">=</span><span class="mf">1.0</span><span class="p">)</span>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">rv</span><span class="o">.</span><span class="n">rvs</span><span class="p">(</span><span class="n">size</span><span class="o">=</span><span class="n">N</span><span class="p">)</span>
+</span><span class='line'><span class="n">nbins</span> <span class="o">=</span> <span class="mi">50</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">nbins</span><span class="p">,</span> <span class="n">normed</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">),</span> <span class="mi">1000</span><span class="p">)</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">rv</span><span class="o">.</span><span class="n">pdf</span><span class="p">(</span><span class="n">x</span><span class="p">),</span> <span class="s">&#39;r-&#39;</span><span class="p">,</span> <span class="n">lw</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s">&#39;triang pdf&#39;</span><span class="p">)</span>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">xlim</span><span class="p">((</span><span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.01</span><span class="p">),</span> <span class="n">rv</span><span class="o">.</span><span class="n">ppf</span><span class="p">(</span><span class="mf">0.99</span><span class="p">)))</span>
+</span><span class='line'>
+</span><span class='line'><span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</span></code></pre></td></tr></table></div></figure></notextile></div>
+
+
+<p><img class="no-border" src="/images/distributions/scipy-triang.png" title="triangular distribution scipy'" ></p>
 </div>
 
 
@@ -407,7 +451,7 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
 
 
 
-<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-08-30T18:52:17+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
+<span class="glyphicon glyphicon-calendar"></span> <time datetime="2014-09-06T17:22:28+09:00"  data-updated="true" itemprop="datePublished dateCreated"></time>
           
 
 <span class="glyphicon glyphicon-tags"></span>&nbsp;
@@ -422,7 +466,7 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
         
           <div class="sharing">
   
-  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/" data-via="" data-counturl="http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/" >Tweet</a>
+  <a href="//twitter.com/share" class="twitter-share-button" data-url="http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/" data-via="" data-counturl="http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/" >Tweet</a>
   
   
   <div class="g-plusone" data-size="medium"></div>
@@ -434,10 +478,8 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
         
           <ul class="meta text-muted pager">
             
-            <li class="previous"><a href="/blog/2014/08/19/octopress/" title="Previous Post: octopress">&laquo; octopress</a></li>
+            <li class="previous"><a href="/blog/2014/08/30/various-distributions-with-incanter/" title="Previous Post: various distributions with incanter">&laquo; various distributions with incanter</a></li>
             
-            
-            <li class="next"><a href="/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/" title="Next Post: more distributions with incanter and commons math">more distributions with incanter and commons math &raquo;</a></li>
             
           </ul>
         
@@ -462,9 +504,9 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
   
   <div id="recent_posts" class="list-group">
     
-    <a class="list-group-item " href="/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/">More Distributions With Incanter and Commons Math</a>
+    <a class="list-group-item active" href="/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/">More Distributions With Incanter and Commons Math</a>
     
-    <a class="list-group-item active" href="/blog/2014/08/30/various-distributions-with-incanter/">Various Distributions With Incanter</a>
+    <a class="list-group-item " href="/blog/2014/08/30/various-distributions-with-incanter/">Various Distributions With Incanter</a>
     
     <a class="list-group-item " href="/blog/2014/08/19/octopress/">Octopress</a>
     
@@ -502,8 +544,8 @@ Here&rsquo;s how I got it with <a href="https://github.com/incanter/incanter">In
       
         
         // var disqus_developer = 1;
-        var disqus_identifier = 'http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/';
-        var disqus_url = 'http://ktsujister.github.io/blog/2014/08/30/various-distributions-with-incanter/';
+        var disqus_identifier = 'http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/';
+        var disqus_url = 'http://ktsujister.github.io/blog/2014/09/06/more-distributions-with-incanter-and-commons-math/';
         var disqus_script = 'embed.js';
       
     (function () {
